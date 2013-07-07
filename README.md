@@ -9,13 +9,11 @@ Installation
 ------------
 
     gem 'data_spec'
-    {cucumber}
-    {rspec}
 
-Cucumber
+# Cucumber
+
+Setup:
 ------------
-
-# Setup:
 
 Include `data_spec/cucumber` and define `data` in your Cucumber environment:
 ```ruby
@@ -27,11 +25,13 @@ def data
 end
 ```
 
-# Usage:
+Usage:
+------------
+**The step `Given the data is:` is not supplied by this gem**
 
 Use either YAML or JSON:
 ````ruby
-Given the data is:        # You define this one
+Given the data is:
 """
 chunky: bacon
 """
@@ -104,20 +104,26 @@ Then the data at "1" should be 100
 Then the data at "2" should be `String.class`
 ```
 (Among other things, this lets you work around Ruby YAML's lack of support for scientific notation)
+
 **Note: This is done via a raw `eval`, so it's dangerous**
 
-#Steps
+Steps
+----------
+Three step definitions:
 
+Matching:
 * `Then the data should be:`
 * `Then the data should be "..."`
 * `Then the data at "..." should be:`
 * `Then the data at "..." should be "..."`
 
+Inclusion:
 * `Then the data includes:`
 * `Then the data includes "..."`
 * `Then the data at "..." includes:`
 * `Then the data at "..." includes "..."`
 
+Type checking:
 * `Then the data is of type ...`
 * `Then the data at "..." if of type ...`
 
@@ -127,50 +133,59 @@ When checking inclusion against an array, you need to supply an array: `[1,2,3]`
 
 When checking inclusion against a hash, you need to supply a hash: `{one: :two, three: four}` includes `{one: :two}`
 
-RSpec
---------
+# RSpec
 
+Three matchers:
 * `match_data(...).at(...)`
 * `includes_data(...).at(...)`
 * `match_block(lambda{...}).at(...)`
 
-Exact matching is (as it turns out!) handled by `==`, while partial matching is handled by http://stackoverflow.com/questions/3826969/ruby-hash-include-another-hash-deep-check
-Note that pathing is applied to the object being checked: in `hash1.should match_data(hash2).at("path/0")`, `hash1[:path][0]` would be compared to `hash2`.
+Exact matching is handled by `==`, while partial matching is handled by http://stackoverflow.com/questions/3826969/ruby-hash-include-another-hash-deep-check
+
+Note that pathing is applied to the object being checked:
+    hash1.should match_data(hash2).at("path/0")
+results in:
+    hash1[:path][0].should match_data(hash2)
+
+# Library
 
 Helpers
 --------
-* DataSpec::Helpers.at_path(data, path)
-* DataSpec.parse
+* `DataSpec::Helpers.at_path(data, path)`
+* `DataSpec.parse`
 
-`at_path` is what provides the "pathing" functionality, while `parse` provides interpreting embedded code.
+`at_path` is what provides the "pathing" functionality, while `parse` provides the interpreting of embedded code.
 
 As seen in the examples, you can use $ at the beginning and end, or backticks instead of quotes. 
-The backticks will actually be converted to dollar signs, but they're prettier and easier to read.
+The backticks will actually be converted to dollar signs (YAML parsers choke on backticks), 
+but they're prettier and easier to read.
 
 Refinements
 -------
-`DataSpec::Refinements` adds `tree_walk_with_self` to both `Hash` and `Array`.
-It allows you to apply a block to every key/value pair in the hash or array, traversing recursively.
-Supply a block accepting `(key, value), hash`, where `hash` is the current node; `hash[key] == value`; this allows you to alter the values.
+* `Array.tree_walk_with_self{|(key, value), array| ... }`
+* `Array.deep_include? sub_array`
+* `Hash.tree_walk_with_self{|(key, value), hash| ... }`
+* `Hash.deep_include? sub_hash`
 
-Issues
+`tree_walk_with_self` allows you to apply a block to every key/value pair in the hash or array, traversing recursively.
+The final value is the current node: `hash[key] == value`  - this allows you to alter the values of the hash during traversal.
+
+`Array.deep_include? sub_array` simply does `(sub_array - self).empty?`
+
+`Hash.deep_include? sub_hash` is used to detect if every key/value pair in the `sub_hash` is present in `self`
+
+#Contributing
+
+Remaining Issues
 -------
 * The YAML/JSON equivelance check is failing. 
 * The error messages suck. Plan is to provide them as a diff'd YAML, although I'm not sure what to do for blocks
-* No table syntax as in json_spec
+* No table syntax as in `json_spec`
 * No explicit testing of `tree_walks_with_self`
 * No support for XML
 
-Contributing
+Pull Requests
 -----------
 Go for it! Accepted code will have Cucumber and RSpec testing and be minimalist; if you spot a bug, try to provide a failing test in the report.
 
-"Minimalist" doesn't mean fewest lines of code (although that's usually the case); it generally means "fewest new functions and objects"
-
-
-
-
-
-
-
-
+"Minimalist" doesn't mean fewest lines of code (although that's usually the case); it means "fewest new functions and objects"
