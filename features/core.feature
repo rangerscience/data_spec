@@ -1,5 +1,38 @@
 Feature: Core Steps
 
+  Scenario: JSON / YAML Equality
+    Given the data is:
+    """
+    - chunky: bacon
+      ordered_by:
+      - person: joe
+        wants:
+          pieces: `1+1`
+      - person: josephina
+        wants:
+          pieces: `1e2`
+    """
+    Then the data should be:
+    """
+    {
+      "chunky": "bacon", 
+      "ordered_by": [
+        {
+          "person": "joe",
+          "wants": {
+            "pieces": "`1+1`"
+          }
+        }, 
+        {
+          "person": "josephina",
+          "wants": {
+            "pieces": "`1e2`"
+          } 
+        }
+      ]
+    }
+    """
+
   Scenario: Array Equality
     Given the data is:
     """
