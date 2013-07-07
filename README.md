@@ -97,7 +97,7 @@ Given the data is:
 """
 - `1+1`
 - '$1e2$'
-- `"bacon".class`
+- `'bacon'.class`
 """
 Then the data at "0" should be 2
 Then the data at "1" should be 100
@@ -109,7 +109,6 @@ Then the data at "2" should be `String.class`
 
 Steps
 ----------
-Three step definitions:
 
 Matching:
 * `Then the data should be:`
@@ -129,12 +128,24 @@ Type checking:
 
 Pathing is done like so: `data[:chunky]['Bacon'][0]` would be "chunky/bacon/0". Each element (when looking in a hash) is first tried as a symbol, then as a string.
 
-When checking inclusion against an array, you need to supply an array: `[1,2,3]` includes `[2]`, or `[1, [2,3], 4]` includes `[[2,3]]`
+When checking inclusion against an array, you need to supply an array: `[1,2,3]` includes `[2]`, or `[1, [2,3], 4]` includes `[[2,3]]`.
 
 When checking inclusion against a hash, you need to supply a hash: `{one: :two, three: four}` includes `{one: :two}`
 
+You don't see this quite the same in the Cucumber steps because YAML parsing from a string does this inherently: `"one: two"` becomes `{'one' => 'two'}` and
+`"[one, two]"` or `"- one\n- two"` becomes `['one', 'two']`
+
 # RSpec
 
+Setup
+--------
+```ruby
+#in spec/spec_helper.rb
+require 'data_spec'
+```
+
+Matchers
+--------
 Three matchers:
 * `match_data(...).at(...)`
 * `includes_data(...).at(...)`
@@ -170,7 +181,8 @@ Refinements
 `tree_walk_with_self` allows you to apply a block to every key/value pair in the hash or array, traversing recursively.
 The final value is the current node: `hash[key] == value`  - this allows you to alter the values of the hash during traversal.
 
-`Array.deep_include? sub_array` simply does `(sub_array - self).empty?`
+`Array.deep_include? sub_array` simply does `(sub_array - self).empty?`, which is true when all elements of the sub-array
+are present in `self`
 
 `Hash.deep_include? sub_hash` is used to detect if every key/value pair in the `sub_hash` is present in `self`
 
@@ -183,6 +195,7 @@ Remaining Issues
 * No table syntax as in `json_spec`
 * No explicit testing of `tree_walks_with_self`
 * No support for XML
+* **README Steps are Failing**
 
 Pull Requests
 -----------
