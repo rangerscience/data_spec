@@ -51,6 +51,8 @@ module DataSpec
       # `code` is more readable, but not parsable, for our purposes we're converting it to $
       unrendered = YAML.load(yaml.gsub("`", "$"))
     
+      return unrendered unless unrendered.is_a?(Array) || unrendered.is_a?(Hash)
+
       unrendered.tree_walk_with_self do |(k, v), h|
         if v =~ /^\$(.+)\$$/     
           h[k] = eval($1)        

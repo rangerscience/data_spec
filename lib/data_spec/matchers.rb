@@ -52,9 +52,3 @@ module DataSpec
   module Interpolation
   end
 end
-
-RSpec.configure do |config|
-  config.include DataSpec::Matchers
-  config.include DataSpec::Inclusion
-  config.include DataSpec::Block
-end
