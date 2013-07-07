@@ -154,8 +154,11 @@ Three matchers:
 Exact matching is handled by `==`, while partial matching is handled by http://stackoverflow.com/questions/3826969/ruby-hash-include-another-hash-deep-check
 
 Note that pathing is applied to the object being checked:
+
     hash1.should match_data(hash2).at("path/0")
+
 results in:
+
     hash1[:path][0].should match_data(hash2)
 
 # Library
@@ -173,13 +176,15 @@ but they're prettier and easier to read.
 
 Refinements
 -------
+Defined in `DataSpec::Refinements`; to use, `using DataSpec::Refinements`
+
 * `Array.tree_walk_with_self{|(key, value), array| ... }`
 * `Array.deep_include? sub_array`
 * `Hash.tree_walk_with_self{|(key, value), hash| ... }`
 * `Hash.deep_include? sub_hash`
 
 `tree_walk_with_self` allows you to apply a block to every key/value pair in the hash or array, traversing recursively.
-The final value is the current node: `hash[key] == value`  - this allows you to alter the values of the hash during traversal.
+The third yielded value is the current node: `hash[key] == value`  - this allows you to alter the values of the hash during traversal.
 
 `Array.deep_include? sub_array` simply does `(sub_array - self).empty?`, which is true when all elements of the sub-array
 are present in `self`
