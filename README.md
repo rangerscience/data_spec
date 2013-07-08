@@ -75,7 +75,7 @@ Then the data includes:
 - 1
 - 2
 """
-And the data at "even" includes "'in a': hash"
+And the data at "3/even" includes "'in a': hash"
 ```
 
 Check types:
@@ -101,7 +101,7 @@ Given the data is:
 """
 Then the data at "0" should be 2
 Then the data at "1" should be 100
-Then the data at "2" should be `String.class`
+Then the data at "2" should be `"chunky".class`
 ```
 (Among other things, this lets you work around Ruby YAML's lack of support for scientific notation)
 
