@@ -1,8 +1,5 @@
 require "data_spec/cucumber"
-
-begin
-  require 'debugger'
-end
+#require 'debugger'
 
 def data
   @data
