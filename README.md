@@ -198,12 +198,10 @@ are present in `self`
 
 Remaining Issues
 -------
-* The YAML/JSON equivelance check is failing. 
 * The error messages suck. Plan is to provide them as a diff'd YAML, although I'm not sure what to do for blocks
 * No table syntax as in `json_spec`
 * No explicit testing of `tree_walks_with_self`
 * No support for XML
-* **README Steps are Failing**
 
 Pull Requests
 -----------
