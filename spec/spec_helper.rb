@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'bundler/setup'
-require 'debugger'
+
+begin
+  require 'debugger'
+end
 
 require 'data_spec' # and any other gems you need
 
