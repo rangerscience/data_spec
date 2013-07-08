@@ -1,8 +1,7 @@
 data_spec
-  [![Build Status](https://secure.travis-ci.org/narfanator/data_spec.png)](http://travis-ci.org/narfanator/data_spec)
-  [![Dependency Status](https://gemnasium.com/narfanator/data_spec.png)](https://gemnasium.com/narfanator/data_spec) 
-  [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/narfanator/data_spec)
 ========
+
+[![Build Status](https://secure.travis-ci.org/narfanator/data_spec.png)](http://travis-ci.org/narfanator/data_spec) [![Dependency Status](https://gemnasium.com/narfanator/data_spec.png)](https://gemnasium.com/narfanator/data_spec) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/narfanator/data_spec)
 
 Easily compare hashes and arrays in RSpec and Cucumber
 
