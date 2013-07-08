@@ -1,4 +1,7 @@
 data_spec
+  [![Build Status](https://secure.travis-ci.org/narfanator/data_spec.png)](http://travis-ci.org/narfanator/data_spec)
+  [![Dependency Status](https://gemnasium.com/narfanator/data_spec.png)](https://gemnasium.com/narfanator/data_spec) 
+  [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/narfanator/data_spec)
 ========
 
 Easily compare hashes and arrays in RSpec and Cucumber
@@ -151,8 +154,10 @@ Three matchers:
 * `includes_data(...).at(...)`
 * `match_block(lambda{...}).at(...)`
 
-Exact matching is handled by `==`, while partial matching is handled by http://stackoverflow.com/questions/3826969/ruby-hash-include-another-hash-deep-check
+Exact matching is handled by `==`, while partial matching is handled by 
+[`deep_include?`](http://stackoverflow.com/questions/3826969/ruby-hash-include-another-hash-deep-check)
 
+  [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/narfanator/data_spec)
 Note that pathing is applied to the object being checked:
 
     hash1.should match_data(hash2).at("path/0")
