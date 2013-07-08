@@ -1,3 +1,4 @@
+require 'yaml'
 module DataSpec
   module Refinements
     refine Array do
