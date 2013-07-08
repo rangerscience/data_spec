@@ -17,10 +17,6 @@ module DataSpec
 
       diffable
     end
-  end
-
-  module Inclusion
-    extend RSpec::Matchers::DSL
 
     matcher :include_data do |expected|
       match do |actual|
@@ -33,10 +29,6 @@ module DataSpec
 
       diffable
     end
-  end
-
-  module Block 
-    extend RSpec::Matchers::DSL
 
     matcher :match_block do |block|
       match do |actual|
@@ -47,8 +39,5 @@ module DataSpec
         @path = path
       end
     end
-  end
-
-  module Interpolation
   end
 end

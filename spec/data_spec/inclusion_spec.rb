@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DataSpec::Inclusion do
+describe DataSpec::Matchers do
 
   it "can check array inclusion" do
     [1,2,3].should include_data([2])

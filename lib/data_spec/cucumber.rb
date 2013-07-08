@@ -1,6 +1,6 @@
 require 'data_spec'
 
-World(DataSpec::Helpers, DataSpec::Matchers, DataSpec::Inclusion, DataSpec::Block)
+World(DataSpec::Helpers, DataSpec::Matchers)
 
 # Then the data at "path" should be "data"
 # Then the data should be: (...)
