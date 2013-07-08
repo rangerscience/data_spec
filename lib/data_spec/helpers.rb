@@ -3,9 +3,7 @@ module DataSpec
     refine Array do
       def tree_walk_with_self &block  
         self.each_with_index do |element, index|
-          if element.is_a? Hash  
-            element.tree_walk_with_self &block
-          elsif element.is_a? Array       
+          if element.is_a?(Hash) || element.is_a?(Array)
             element.tree_walk_with_self &block
           else
             yield [index, element], self    
@@ -20,13 +18,11 @@ module DataSpec
         
     refine Hash do               
       def tree_walk_with_self &block  
-        self.each do |key,value| 
-          if value.is_a? Hash    
-            value.tree_walk_with_self &block
-          elsif value.is_a? Array
+        self.each do |key, value| 
+          if value.is_a?(Hash) || value.is_a?(Array)
             value.tree_walk_with_self &block
           else
-            yield [key,value], self         
+            yield [key, value], self         
           end
         end
       end                        
@@ -51,13 +47,18 @@ module DataSpec
       # `code` is more readable, but not parsable, for our purposes we're converting it to $
       unrendered = YAML.load(yaml.gsub("`", "$"))
     
-      return unrendered unless unrendered.is_a?(Array) || unrendered.is_a?(Hash)
-
-      unrendered.tree_walk_with_self do |(k, v), h|
-        if v =~ /^\$(.+)\$$/     
-          h[k] = eval($1)        
+      if unrendered.is_a?(Array) || unrendered.is_a?(Hash)
+        rendered = unrendered.tree_walk_with_self do |(k, v), h|
+          if v =~ /^\$(.+)\$$/     
+            h[k] = eval($1)        
+          end
         end
+      elsif unrendered.is_a?(String) && unrendered =~ /^\$(.+)\$$/
+        rendered = eval($1)
+      else
+        rendered = unrendered
       end
+      rendered
     end
     def self.at_path data, path
       return data if path.nil? || path.empty?
