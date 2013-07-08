@@ -156,7 +156,6 @@ Three matchers:
 Exact matching is handled by `==`, while partial matching is handled by 
 [`deep_include?`](http://stackoverflow.com/questions/3826969/ruby-hash-include-another-hash-deep-check)
 
-  [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/narfanator/data_spec)
 Note that pathing is applied to the object being checked:
 
     hash1.should match_data(hash2).at("path/0")
