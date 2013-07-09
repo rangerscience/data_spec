@@ -3,6 +3,7 @@ require 'spec_helper'
 describe DataSpec::Matchers do
   it "can check versus a block" do
     "chunky".should match_block(lambda{|got| got.is_a? String})
+
     "chunky".should_not match_block(lambda{|got| got.is_a? Integer})
   end
 

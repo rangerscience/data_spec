@@ -46,9 +46,9 @@ describe DataSpec::Matchers do
   end
 
   it "can check at a path" do
-    [1, {array: [2, {chunky: :bacon, bacon: :chunky} ] } ].should include_data({chunky: :bacon}).at("1/array/1")
-    [1, {array: [2, {chunky: :bacon, bacon: :chunky} ] } ].should include_data({chunky: :bacon}).at("1/array/1")
+    [1, {breakfast: [2, {chunky: :bacon, bacon: :chunky} ] } ].should include_data({chunky: :bacon}).at("1/breakfast/1")
+    [1, {breakfast: [2, {chunky: :bacon, bacon: :chunky} ] } ].should include_data({chunky: :bacon}).at("1/breakfast/1")
 
-    [1, {array: [2, {chunky: :bacon, bacon: :chunky} ] } ].should_not include_data({chunky: :nocab}).at("1/array/1")
+    [1, {breakfast: [2, {chunky: :bacon, bacon: :chunky} ] } ].should_not include_data({chunky: :nocab}).at("1/breakfast/1")
   end
 end

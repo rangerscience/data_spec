@@ -6,30 +6,37 @@ describe DataSpec::Matchers do
     {}.should match_data({})
     {}.should_not match_data([])
   end
+
   it "should match empty arrays" do
     [].should match_data([])
     [].should_not match_data({})
   end
+
   it "should match strings" do
     "Bacon".should match_data("Bacon")
     "Bacon".should_not match_data("Chunky")
   end
+
   it "should match integers" do
     1.should match_data(1)
     2.should_not match_data(1)
   end
+
   it "should match floats" do
     1.1.should match_data(1.1)
     2.1.should_not match_data(1.1)
   end
+
   it "should match true" do
     true.should match_data(true)
     true.should_not match_data(false)
   end
+
   it "should match false" do
     false.should match_data(false)
     false.should_not match_data(true)
   end
+
   it "should match nil" do
     nil.should match_data(nil)
     nil.should_not match_data("something")
