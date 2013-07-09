@@ -1,4 +1,5 @@
 require 'data_spec'
+require 'time'
 
 World(DataSpec::Helpers, DataSpec::Matchers)
 
@@ -25,5 +26,11 @@ Then(/^the data(?: at "(.*?)")? should include:?(?: "(.*?)")?$/) do |path, inlin
 end
 
 Then(/^the data at "(.*?)" should be of type ([A-Z][a-z]+)$/) do |path, type|
-  data.should match_block(lambda{|item| item.is_a? Object.const_get(type)}).at(path)
+  if type == "Time"
+    #JSON doesn't actually interpret a time string into a Time,
+    # YAML will, but Time doesn't parse a Time object
+    data.should match_block(lambda{|item| Time.parse(item.to_s).is_a? Time}).at(path)
+  else
+    data.should match_block(lambda{|item| item.is_a? Object.const_get(type)}).at(path)
+  end
 end
