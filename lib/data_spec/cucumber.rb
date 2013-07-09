@@ -1,3 +1,4 @@
+require File.expand_path("../../data_spec", __FILE__)
 require 'data_spec'
 require 'time'
 
