@@ -1,4 +1,5 @@
 require 'data_spec/helpers'
+require 'diffy'
 
 using DataSpec::Refinements
 
@@ -15,7 +16,12 @@ module DataSpec
         @path = path
       end
 
-      diffable
+      failure_message_for_should do |actual|
+        Diffy::Diff.new(
+          DataSpec::Helpers.at_path(actual, @path).to_yaml,
+          expected.to_yaml
+        )
+      end
     end
 
     matcher :include_data do |expected|
@@ -27,7 +33,12 @@ module DataSpec
         @path = path
       end
 
-      diffable
+      failure_message_for_should do |actual|
+        Diffy::Diff.new(
+          DataSpec::Helpers.at_path(actual, @path).to_yaml,
+          expected.to_yaml
+        )
+      end
     end
 
     matcher :match_block do |block|
