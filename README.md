@@ -17,10 +17,10 @@ Installation
 Setup:
 ------------
 
-Include `data_spec/cucumber` and define `data` in your Cucumber environment:
+Include `data_spec` and define `data` in your Cucumber environment:
 ```ruby
 # features/support/env.rb
-require "data_spec/cucumber"
+require "data_spec"
 
 def data
   #...
@@ -88,9 +88,9 @@ Given the data is:
 - 1
 - 2013-07-06 20:09:32.824102000 -07:00
 """
-Then the data at "0" is of type String
-Then the data at "1" is of type Fixnum
-Then the data at "2" is of type Time
+Then the data at "0" should be of type String
+Then the data at "1" should be of type Fixnum
+Then the data at "2" should be of type Time
 ```
 
 Use embedded code:

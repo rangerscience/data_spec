@@ -12,6 +12,6 @@ Then(/^the data(?: at "(.*?)")? should include:?(?: "(.*?)")?$/) do |path, inlin
   data.should include_data(DataSpec.parse(inline || block.first)).at(path)
 end
 
-Then(/^the data at "(.*?)" is of type ([A-Z][a-z]+)$/) do |path, type|
+Then(/^the data at "(.*?)" should be of type ([A-Z][a-z]+)$/) do |path, type|
   data.should match_block(lambda{|item| item.is_a? Object.const_get(type)}).at(path)
 end

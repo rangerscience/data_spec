@@ -110,9 +110,9 @@ Feature: Core Steps
     hash: {}
     array: []
     """
-    Then the data at "date" is of type Time
-    And the data at "fixnum" is of type Fixnum
-    And the data at "float" is of type Float
-    And the data at "string" is of type String
-    And the data at "hash" is of type Hash
-    And the data at "array" is of type Array
+    Then the data at "date" should be of type Time
+    And the data at "fixnum" should be of type Fixnum
+    And the data at "float" should be of type Float
+    And the data at "string" should be of type String
+    And the data at "hash" should be of type Hash
+    And the data at "array" should be of type Array
