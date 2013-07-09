@@ -48,6 +48,9 @@ module DataSpec
     def self.evaluate string
       eval(string)
     end
+    def self.remember varname, data
+      instance_variable_set(varname, data)
+    end
     def self.parse yaml
       # `code` is more readable, but not parsable, for our purposes we're converting it to $
       unrendered = YAML.load(yaml.gsub("`", "$"))
