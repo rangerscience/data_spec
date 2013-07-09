@@ -109,6 +109,43 @@ Then the data at "2" should be `"chunky".class`
 
 **Note: This is done via a raw `eval`, so it's dangerous**
 
+Store data for later use:
+```ruby
+Given `@samples` is:
+"""
+where: "http://google.com"
+when: `Time.now`
+"""
+And `@samples` includes:
+"""
+what: {}
+"""
+And `@samples['what']` is:
+"""
+- chunky
+- bacon
+"""
+And the data is:
+"""
+meal: 
+  main_course: `@samples['what'][1]`
+  style: `@samples['what'][0]`
+  ordered: `@samples['when']`
+"""
+Then the data should be:
+"""
+meal:
+  main_course: bacon
+  style: chunky
+  ordered: `@samples['when']`
+"""
+```
+
+Again, this is done by raw eval, so it's dangerous, and it's definitely enough to shoot your foot off with.
+
+If you're using this in anything like a complex sense, look up the "evaluation" and "remember" helpers, below
+
+
 Steps
 ----------
 
@@ -176,6 +213,15 @@ Helpers
 As seen in the examples, you can use $ at the beginning and end, or backticks instead of quotes. 
 The backticks will actually be converted to dollar signs (YAML parsers choke on backticks), 
 but they're prettier and easier to read.
+
+* `DataSpec::Helpers.evaluate(string)`
+
+This simply does an `eval` on the string; however, _because it also used when parsing YAML/JSON_, you can add variables
+in which it is run, and use those variables in your YAML and JSON. 
+
+* `DataSpec::Helpers.remember(string, data)
+
+This is another way to add data to the evaulation scope; pass in the complete variable name (such as `@sample_data`) and the data to be stored.
 
 Refinements
 -------
