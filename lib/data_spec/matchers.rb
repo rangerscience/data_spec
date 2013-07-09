@@ -15,7 +15,9 @@ module DataSpec
         @path = path
       end
 
-      diffable
+      failure_message_for_should do |actual|
+        "Got:\n#{actual.to_yaml}\nExpected:\n#{expected.to_yaml}"
+      end
     end
 
     matcher :include_data do |expected|
@@ -27,7 +29,9 @@ module DataSpec
         @path = path
       end
 
-      diffable
+      failure_message_for_should do |actual|
+        "Got:\n#{actual.to_yaml}\nExpected:\n#{expected.to_yaml}"
+      end
     end
 
     matcher :match_block do |block|
