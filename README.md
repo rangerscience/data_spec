@@ -87,11 +87,14 @@ Given the data is:
 - bacon
 - 1
 - 2013-07-06 20:09:32.824102000 -07:00
+- "https://www.google.com/images/srpr/logo4w.png"
 """
 Then the data at "0" should be of type String
 Then the data at "1" should be of type Fixnum
 Then the data at "2" should be of type Time
+Then the data at "3" should be of type URI
 ```
+Note: Checking a URI involves actually fetching the URI
 
 Use embedded code:
 ```ruby

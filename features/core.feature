@@ -109,6 +109,7 @@ Feature: Core Steps
     string: bacon
     hash: {}
     array: []
+    url: "https://www.google.com/images/srpr/logo4w.png"
     """
     Then the data at "date" should be of type Time
     And the data at "fixnum" should be of type Fixnum
@@ -116,3 +117,5 @@ Feature: Core Steps
     And the data at "string" should be of type String
     And the data at "hash" should be of type Hash
     And the data at "array" should be of type Array
+    And the data at "url" should be of type URI
+    #Note: ^^ Actually fetches the URL

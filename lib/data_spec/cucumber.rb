@@ -1,6 +1,7 @@
 require File.expand_path("../../data_spec", __FILE__)
 require 'data_spec'
 require 'time'
+require 'open-uri'
 
 World(DataSpec::Helpers, DataSpec::Matchers)
 
@@ -31,6 +32,8 @@ Then(/^the data at "(.*?)" should be of type ([A-Za-z]+)$/) do |path, type|
     #JSON doesn't actually interpret a time string into a Time,
     # YAML will, but Time doesn't parse a Time object
     data.should match_block(lambda{|item| Time.parse(item.to_s).is_a? Time}).at(path)
+  elsif type == "URI"
+    expect { open(DataSpec::Helpers.at_path(data, path)) }.to_not raise_error
   else
     data.should match_block(lambda{|item| item.is_a? Object.const_get(type)}).at(path)
   end
