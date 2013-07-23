@@ -26,7 +26,7 @@ Then(/^the data(?: at "(.*?)")? should include:?(?: "(.*?)")?$/) do |path, inlin
   data.should include_data(DataSpec.parse(inline || block.first)).at(path)
 end
 
-Then(/^the data at "(.*?)" should be of type ([A-Z][a-z]+)$/) do |path, type|
+Then(/^the data at "(.*?)" should be of type ([A-Za-z]+)$/) do |path, type|
   if type == "Time"
     #JSON doesn't actually interpret a time string into a Time,
     # YAML will, but Time doesn't parse a Time object
